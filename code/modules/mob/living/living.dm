@@ -763,7 +763,7 @@
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
 /mob/living/proc/can_be_revived()
 	. = TRUE
-	if(health <= HEALTH_THRESHOLD_DEAD)
+	if(health <= HEALTH_THRESHOLD_DEAD + wounds)
 //		return ("no")
 		return FALSE
 

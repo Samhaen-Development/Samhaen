@@ -120,6 +120,7 @@
 	var/maximum_stamina = 100
 	var/energy = 1000
 	var/stamina = 0
+	var/wounds = 0	//permanent damage that lowers your crit threshold and reduces healing.
 
 	var/last_fatigued = 0
 	var/last_ps = 0

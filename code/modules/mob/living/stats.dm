@@ -9,6 +9,9 @@
 	var/STAINT = 10
 	var/STASPD = 10
 	var/STALUC = 10
+
+	var/STABOD = 10
+	var/STAWIL = 10
 	var/datum/patron/patron = /datum/patron/godless
 	///These aren't. The "True" stat if you will.
 	var/TOTALSTR = 10
@@ -18,6 +21,9 @@
 	var/TOTALINT = 10
 	var/TOTALSPD = 10
 	var/TOTALLUC = 10
+
+	var/TOTALBOD = 10
+	var/TOTALWIL = 10
 
 	var/has_rolled_for_stats = FALSE
 
@@ -39,9 +45,9 @@
 
 /datum/species
 	///Statkey = bonus stat, - for malice.
-	var/list/specstats = list(STATKEY_STR = 0, STATKEY_PER = 0, STATKEY_END = 0,STATKEY_CON = 0, STATKEY_INT = 0, STATKEY_SPD = 0, STATKEY_LCK = 0)
+	var/list/specstats = list(STATKEY_STR = 0, STATKEY_PER = 0, STATKEY_END = 0,STATKEY_CON = 0, STATKEY_INT = 0, STATKEY_SPD = 0, STATKEY_LCK = 0, STATKEY_BOD = 0, STATKEY_WIL = 0)
 	///Statkey = bonus stat, - for malice.
-	var/list/specstats_f = list(STATKEY_STR = 0, STATKEY_PER = 0, STATKEY_END = 0,STATKEY_CON = 0, STATKEY_INT = 0, STATKEY_SPD = 0, STATKEY_LCK = 0)
+	var/list/specstats_f = list(STATKEY_STR = 0, STATKEY_PER = 0, STATKEY_END = 0,STATKEY_CON = 0, STATKEY_INT = 0, STATKEY_SPD = 0, STATKEY_LCK = 0, STATKEY_BOD = 0, STATKEY_WIL = 0)
 
 ///Rolls random stats base 10, +-1, for SPECIAL, and applies species stats and age stats.
 /mob/living/proc/roll_mob_stats()
@@ -140,6 +146,20 @@
 			else
 				TOTALLUC += adjust_amount
 			STALUC = CLAMP(TOTALLUC,1,20)
+
+
+		if(STATKEY_BOD)
+			if(set_stat)
+				TOTALBOD = adjust_amount
+			else
+				TOTALBOD += adjust_amount
+			STABOD = CLAMP(TOTALBOD,1,20)
+		if(STATKEY_WIL)
+			if(set_stat)
+				TOTALWIL = adjust_amount
+			else
+				TOTALWIL += adjust_amount
+			STAWIL = CLAMP(TOTALWIL,1,20)
 	return
 ///Returns: STR,PER,END,CON,INT,SPD,LCK in a list, in that order
 /mob/living/proc/get_stats()
@@ -165,6 +185,11 @@
 			return STASPD - opponent.STASPD
 		if(STATKEY_LCK)
 			return STALUC - opponent.STALUC
+
+		if(STATKEY_BOD)
+			return STABOD - opponent.STABOD
+		if(STATKEY_WIL)
+			return STAWIL - opponent.STAWIL
 	return
 ///Returns: Difference betwen our_stat and opponents opp_stat.
 ///EG: Our STR - opp CON
@@ -188,6 +213,11 @@
 			opponent_stat = opponent.STASPD
 		if(STATKEY_LCK)
 			opponent_stat = opponent.STALUC
+
+		if(STATKEY_BOD)
+			opponent_stat = opponent.STABOD
+		if(STATKEY_WIL)
+			opponent_stat = opponent.STAWIL
 	switch(our_stat_key)
 		if(STATKEY_STR)
 			our_stat = STASTR
@@ -203,6 +233,11 @@
 			our_stat = STASPD
 		if(STATKEY_LCK)
 			our_stat = STALUC
+
+		if(STATKEY_BOD)
+			our_stat = STABOD
+		if(STATKEY_WIL)
+			our_stat = STAWIL
 	return our_stat - opponent_stat
 
 ///Effectively rolls a d20, with each point in the stat being a chance_per_point% chance to succeed per point in the stat. If no stat is provided, just returns 0.
@@ -228,6 +263,10 @@
 			tocheck = STASPD
 		if(STATKEY_LCK)
 			tocheck = STALUC
+		if(STATKEY_BOD)
+			tocheck = STABOD
+		if(STATKEY_WIL)
+			tocheck = STAWIL
 	if(invert_dc)
 		return isnull(dee_cee) ? prob(tocheck * chance_per_point) : prob(clamp((dee_cee - tocheck) * chance_per_point,0,100))
 	else
