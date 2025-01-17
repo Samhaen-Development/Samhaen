@@ -74,6 +74,7 @@
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call
 	physiology = new()
 
+
 	. = ..()
 
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))

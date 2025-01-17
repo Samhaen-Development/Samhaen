@@ -88,6 +88,12 @@
 			if(mob_timers["slo"])
 				mob_timers["slo"] = null
 
+
+		//Set max HP
+		maxHealth = TOTALBOD + TOTALWIL*5
+		if(health>= maxHealth)
+			health=maxHealth
+
 		if(dna?.species)
 			dna.species.spec_life(src) // for mutantraces
 

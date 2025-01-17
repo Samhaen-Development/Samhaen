@@ -9,7 +9,11 @@
 #define STATKEY_SPD "speed"
 #define STATKEY_LCK "fortune"
 
-#define MOBSTATS list(STATKEY_STR, STATKEY_PER, STATKEY_INT, STATKEY_CON, STATKEY_END, STATKEY_SPD , STATKEY_LCK)
+//Sup, we need to work on our new stat system. Right now this just affects HP so
+#define STATKEY_BOD "body"
+#define STATKEY_WIL	"will"
+
+#define MOBSTATS list(STATKEY_STR, STATKEY_PER, STATKEY_INT, STATKEY_CON, STATKEY_END, STATKEY_SPD , STATKEY_LCK, STATKEY_BOD, STATKEY_WIL)
 
 //Misc mob defines
 
