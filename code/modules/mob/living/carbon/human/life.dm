@@ -90,7 +90,7 @@
 
 
 		//Set max HP
-		maxHealth = TOTALBOD + TOTALWIL*5
+		maxHealth = (TOTALBOD + TOTALWIL)*5
 		if(health>= maxHealth)
 			health=maxHealth
 
